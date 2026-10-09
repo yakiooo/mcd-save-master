@@ -1,0 +1,15 @@
+# 环境变量 / 密钥（绝不提交真实 Token）
+.env
+*.env
+.env.*
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# 日志 / 临时
+*.log
+.DS_Store
+*.tmp
