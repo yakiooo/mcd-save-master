@@ -25,6 +25,9 @@ OFFICIAL_TOOLS = {
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SKILL_PATH = os.path.join(ROOT, "SKILL.md")
 
+# 形如 xxx-xxx 但不是工具名的已知标识符（如 MCP 连接器名），不参与工具合法性校验
+KNOWN_NON_TOOLS = {"mcd-mcp"}
+
 
 def extract_tools(text: str):
     """匹配反引号包裹的、形如 xxx-xxx 的工具名。"""
@@ -39,7 +42,7 @@ def main():
     with open(SKILL_PATH, encoding="utf-8") as f:
         content = f.read()
 
-    referenced = extract_tools(content)
+    referenced = [t for t in extract_tools(content) if t not in KNOWN_NON_TOOLS]
     if not referenced:
         print("[WARN] SKILL.md 中未检测到任何 `tool-name` 形式的引用。")
         return 0
